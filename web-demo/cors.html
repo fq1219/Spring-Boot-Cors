@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跨域demo</title>
+    <link rel="stylesheet" href="node_modules/amazeui/dist/css/amazeui.min.css">
+</head>
+
+<body class="am-container">
+<!--简单跨域-->
+<button class="am-btn am-btn-primary" onclick="getUsers(this)">简单跨域: 获取用户列表</button>
+<p class="am-text-danger"></p>
+
+<!--非简单跨域-->
+<button class="am-btn am-btn-primary" onclick="addUser(this)">非简单跨域: 添加用户(JSON请求)</button>
+<input type="text" placeholder="用户名">
+<p class="am-text-danger"></p>
+
+<!--检查是否登录-->
+<button class="am-btn am-btn-primary am-margin-right" onclick="checkLogin(this)">登录校验</button>
+<p class="am-text-danger"></p>
+
+<!--登录-->
+<button class="am-btn am-btn-primary" onclick="login(this)">登录</button>
+<input type="text" placeholder="用户名">
+<p class="am-text-danger"></p>
+</body>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/amazeui/dist/js/amazeui.js"></script>
+<script>
+    function getUsers(btn) {
+        var $btn = $(btn);
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8080/api/users',
+            contentType: "application/json;charset=UTF-8"
+        }).then(
+                function (obj) {
+                    $btn.next('p').html(JSON.stringify(obj));
+                },
+                function () {
+                    $btn.next('p').html('error...');
+                }
+        )
+    }
+
+    function addUser(btn) {
+        var $btn = $(btn);
+        var name = $btn.next('input').val();
+        if (!name) {
+            $btn.next('input').next('p').html('用户名不能为空');
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost:8080/api/users',
+            contentType: "application/json;charset=UTF-8",
+            data: name,
+            dataType: 'json'
+        }).then(
+                function (obj) {
+                    $btn.next('input').next('p').html(JSON.stringify(obj));
+                },
+                function () {
+                    $btn.next('input').next('p').html('error...');
+                }
+        )
+    }
+
+    function checkLogin(btn) {
+        var $btn = $(btn);
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8080/api/user/login',
+            contentType: "application/json;charset=UTF-8",
+            xhrFields: {
+                withCredentials: true
+            }
+        }).then(
+                function (obj) {
+                    $btn.next('p').html(JSON.stringify(obj));
+                },
+                function () {
+                    $btn.next('p').html('error...');
+                }
+        )
+    }
+
+    function login(btn) {
+        var $btn = $(btn);
+        var name = $btn.next('input').val();
+        if (!name) {
+            $btn.next('input').next('p').html('用户名不能为空');
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost:8080/api/user/login',
+            contentType: "application/json;charset=UTF-8",
+            data: name,
+            dataType: 'json',
+            xhrFields: {
+                withCredentials: false
+            }
+        }).then(
+                function (obj) {
+                    $btn.next('input').next('p').html(JSON.stringify(obj));
+                },
+                function () {
+                    $btn.next('input').next('p').html('error...');
+                }
+        )
+    }
+</script>
+</html>

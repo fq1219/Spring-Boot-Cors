@@ -1,0 +1,62 @@
+[class*="xr-icon-"] {
+    display: inline-block;
+    font-style: normal;
+}
+
+[class*="xr-icon-"]:before {
+    display: inline-block;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.xr-icon-circle-o-notch:before {
+    content: ' ';
+    display: inline-block;
+    background: url("../img/iconfont-loading.png") no-repeat center;
+    height: 19px;
+    width: 19px;
+    background-size: 100%;
+    vertical-align: bottom;
+}
+
+@-webkit-keyframes icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes icon-spin {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+.xr-icon-spin {
+    -webkit-animation: icon-spin 2s infinite linear;
+    animation: icon-spin 2s infinite linear;
+}
+
+/* Button with loading spinner */
+.xr-btn-loading .xr-icon-spin {
+    margin-right: 5px;
+}
+
+.xr-disabled {
+    pointer-events: none;
+    border-color: transparent;
+    cursor: not-allowed;
+    opacity: 0.45;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}

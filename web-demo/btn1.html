@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="node_modules/amazeui/dist/css/amazeui.css">
+</head>
+<body>
+<button class="am-btn am-btn-primary" type="button"
+        data-xr-loading="{spinner: 'circle-o-notch', loadingText: '加载中...'}">
+    保存
+</button>
+</body>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<!--<script src="node_modules/amazeui/dist/js/amazeui.js"></script>-->
+<script>
+    $('button').on('click', clickBtn);
+
+    function clickBtn() {
+        var $btn = $(this);
+        $btn.button('loading');
+
+//        setTimeout(function () {
+//            $btn.button('reset');
+//        }, 5000);
+    }
+
+    $.fn.button = function (option) {
+        if (this.length != 1 || !this.context || this.context.tagName != 'BUTTON') {
+            return;
+        }
+        var $btn = this;
+        switch (option) {
+            case "loading":
+                var options = parseOptions($btn.attr('data-xr-loading'));
+                var loadingText = options.loadingText || "加载中...";
+                $btn.data('resetText', options.resetText || $btn.html());
+                $btn.attr('disabled', 'disabled').addClass('xr-disabled').addClass('xr-btn-loading');
+                $btn.html('<span class="xr-icon-circle-o-notch xr-icon-spin"></span>' + loadingText);
+                break;
+            case "reset":
+                $btn.removeAttr('disabled').removeClass('xr-disabled').removeClass('xr-btn-loading');
+                $btn.html($btn.data('resetText'));
+                break;
+            default:
+                break;
+        }
+
+        function parseOptions(string) {
+            if ($.isPlainObject(string)) {
+                return string;
+            }
+            var start = (string ? string.indexOf('{') : -1);
+            var options = {};
+
+            if (start != -1) {
+                try {
+                    options = (new Function('',
+                            'var json = ' + string.substr(start) +
+                            '; return JSON.parse(JSON.stringify(json));'))();
+                } catch (e) {
+                }
+            }
+            return options;
+        }
+    };
+</script>
+</html>

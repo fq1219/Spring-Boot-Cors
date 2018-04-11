@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+
+<button onclick="test()"></button>
+
+</body>
+
+<script>
+    function test(){
+        $.ajax({
+            type: 'get',
+            url: '',
+            data: data,
+            contentType: "application/json;charset=UTF-8",
+            dataType: 'json',
+            xhrFields: {
+                withCredentials: true,
+                useDefaultXhrHeader: false
+            }
+        }).then(
+                function (obj) {
+                    if (obj.success) {
+                        success(obj);
+                    } else {
+                        var tipMopdal = new Modal();
+                        tipMopdal.alertFail({tip: obj.errorMessage.value}).autoClose(2000);
+                        if (fail) {
+                            fail(obj);
+                        }
+                    }
+                },
+                function (obj) {
+                    location.href = '/error.html';
+                }
+        ).always(function () {
+            if (always) {
+                always();
+            }
+            if (showProgress) {
+                NProgress.done();
+            }
+        });
+    }
+</script>
+
+</html>

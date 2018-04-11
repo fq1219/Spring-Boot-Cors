@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .icon {
+            width: 20px;
+            height: 20px;
+            /*border: 1px solid red;*/
+            display: block;
+            background: url("assets/img/iconfont-loading.png") no-repeat center;
+            background-size: 100%;
+        }
+
+        .img {
+            -webkit-animation: circle 2s infinite linear; /*匀速 循环*/
+            animation: circle 2s infinite linear;
+        }
+
+        @-webkit-keyframes circle {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(359deg);
+            }
+        }
+
+        @keyframes circle {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(359deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<span class="icon img"></span>
+</body>
+</html>

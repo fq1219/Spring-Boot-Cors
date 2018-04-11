@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Latest compiled and minified css -->
+    <link rel="stylesheet" href="//cdn.amazeui.org/amazeui/2.2.1/css/amazeui.min.css">
+</head>
+
+<body>
+<button type="button" class="am-btn am-btn-primary">保存</button>
+</body>
+<!-- Latest compiled and minified js -->
+<script src="//libs.useso.com/js/jquery/2.1.1/jquery.min.js"></script>
+<script src="//cdn.amazeui.org/amazeui/2.2.1/js/amazeui.min.js"></script>
+<script>
+    $('button').on('click', clickBtn);
+
+    function clickBtn() {
+        var $btn = $(this);
+        $btn.button('loading');
+        setTimeout(function () {
+            $btn.button('reset');
+        }, 10000);
+    }
+</script>
+</html>
